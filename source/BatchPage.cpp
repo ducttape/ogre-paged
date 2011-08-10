@@ -184,12 +184,16 @@ void BatchPage::setFade(bool enabled, Real visibleDist, Real invisibleDist)
 	{
 		m_bFadeEnabled = enabled;
 
- 		if (enabled)
+ 		if (enabled) {
 			//Transparent batches should render after impostors
-         m_pBatchGeom->setRenderQueueGroup(m_pPagedGeom ? m_pPagedGeom->getRenderQueue() : RENDER_QUEUE_6);
-      else
+            if(m_pPagedGeom)
+                m_pBatchGeom->setRenderQueueGroup(m_pPagedGeom->getRenderQueue());
+            else
+                m_pBatchGeom->setRenderQueueGroup(RENDER_QUEUE_6);
+        } else {
          //Opaque batches should render in the normal render queue
          m_pBatchGeom->setRenderQueueGroup(RENDER_QUEUE_MAIN);
+        }
 
 		m_fVisibleDist    = visibleDist;
 		m_fInvisibleDist  = invisibleDist;
@@ -245,13 +249,14 @@ void BatchPage::_updateShaders()
 			if (el->getSemantic() == VES_TEXTURE_COORDINATES)
          {
 				String uvType;
-            switch (el->getType())
-            {
-            case VET_FLOAT1: uvType = "1"; break;
-            case VET_FLOAT2: uvType = "2"; break;
-            case VET_FLOAT3: uvType = "3"; break;
-            case VET_FLOAT4: uvType = "4"; break;
-            }
+                if(el->getType() == VET_FLOAT1)
+                    uvType = "1";
+                else if(el->getType() == VET_FLOAT2)
+                    uvType = "2";
+                else if(el->getType() == VET_FLOAT3)
+                    uvType = "3";
+                else if(el->getType() == VET_FLOAT4)
+                    uvType = "4";
             tmpName << uvType << '_';
 			}
 		}
@@ -271,7 +276,6 @@ void BatchPage::_updateShaders()
 		//If the shader hasn't been created yet, create it
 		if (HighLevelGpuProgramManager::getSingleton().getByName(vertexProgName).isNull())
 		{
-			Pass *pass = ptrMat->getTechnique(0)->getPass(0);
 			String vertexProgSource;
 
 			if(!shaderLanguage.compare("hlsl") || !shaderLanguage.compare("cg"))
@@ -293,13 +297,14 @@ void BatchPage::_updateShaders()
 					if (el->getSemantic() == VES_TEXTURE_COORDINATES)
                {
                   String uvType;
-                  switch (el->getType())
-                  {
-                  case VET_FLOAT1: uvType = "float"; break;
-                  case VET_FLOAT2: uvType = "float2"; break;
-                  case VET_FLOAT3: uvType = "float3"; break;
-                  case VET_FLOAT4: uvType = "float4"; break;
-                  }
+                  if(el->getType() == VET_FLOAT1)
+                      uvType = "float";
+                  else if(el->getType() == VET_FLOAT2)
+                      uvType = "float2";
+                  else if(el->getType() == VET_FLOAT3)
+                      uvType = "float3";
+                  else if(el->getType() == VET_FLOAT4)
+                      uvType = "float4";
 
 						vertexProgSource +=
 						"	" + uvType + " iUV" + StringConverter::toString(texNum) + "			: TEXCOORD" + StringConverter::toString(texNum) + ",	\n"

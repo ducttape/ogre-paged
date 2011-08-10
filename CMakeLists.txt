@@ -102,10 +102,10 @@ INSTALL(FILES "${PagedGeometry_BINARY_DIR}/PagedGeometry.pc" DESTINATION "${LIB_
 
 # some additional compiler flags
 IF(NOT WIN32)
-	ADD_DEFINITIONS(-Wall)
+    ADD_DEFINITIONS(-Wall -pedantic -std=c++0x -Wno-unused-parameter -Wno-unused-but-set-parameter)
 	CHECK_C_COMPILER_FLAG(-Wextra HAVE_W_EXTRA)
 	IF(HAVE_W_EXTRA)
-		ADD_DEFINITIONS(-Wextra)
+        ADD_DEFINITIONS(-Wextra -Werror)
 	ENDIF()
 endif()
 

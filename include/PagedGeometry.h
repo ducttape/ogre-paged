@@ -1489,9 +1489,14 @@ public:
 private:
 	PagedGeometry *mainGeom;
 
+	//Timer counting how long it has been since the last page has been cached
+	unsigned long cacheTimer;
+
+	GeometryPage **scrollBuffer; //A dynamic 1D array of pointers (temporary GeometryPage's used in scrolling geomGrid)
+
 	//geomGrid is a 2D array storing all the GeometryPage instances managed by this object.
 	GeometryPage **geomGrid;	//A dynamic 2D array of pointers (2D grid of GeometryPage's)
-	GeometryPage **scrollBuffer; //A dynamic 1D array of pointers (temporary GeometryPage's used in scrolling geomGrid)
+
 	int geomGridX, geomGridZ;	//The dimensions of the dynamic array
 	TBounds		 gridBounds;		//Current grid bounds
 
@@ -1530,10 +1535,6 @@ private:
 
 	//Utility function for scrolling pages in the grid by the given amount
 	void _scrollGridPages(int shiftX, int shiftZ);
-
-
-	//Timer counting how long it has been since the last page has been cached
-	unsigned long cacheTimer;
 
 	TPGeometryPages pendingList;	//Pages of geometry to be loaded
 	TPGeometryPages loadedList;	//Pages of geometry already loaded

@@ -736,7 +736,6 @@ void GeometryPageManager::reloadGeometryPages(const Vector3 &center, Real radius
 	if (z2 < 0) z2 = 0; else if (z2 > geomGridZ-1) z2 = geomGridZ-1;
 
 	//Scan all the grid blocks in the region
-	Real radiusSq = radius * radius;
 	for (int x = x1; x <= x2; ++x) {
 		for (int z = z1; z <= z2; ++z) {
 			GeometryPage *page = _getGridPage(x, z);
@@ -1048,7 +1047,7 @@ void GeometryPageManager::_scrollGridPages(int shiftX, int shiftZ)
 
 GeometryPage::GeometryPage()
 {
-	_visible = _fadeEnable = _pending = _pending = _loaded = _needsUnload = false;
+	_visible = _fadeEnable = _pending = _loaded = _needsUnload = false;
 	_trueBoundsUndefined = true;
 	_inactiveTime = 0; _xIndex = _zIndex = 0; 
 	_centerPoint = Ogre::Vector3::ZERO; 

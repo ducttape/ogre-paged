@@ -171,7 +171,7 @@ Ogre::Real DensityMap::_getDensityAt_Bilinear(Ogre::Real x, Ogre::Real z, const 
 
 	uint32 xIndex = (uint32)xIndexFloat;
 	uint32 zIndex = (uint32)zIndexFloat;
-	if (xIndex < 0 || zIndex < 0 || xIndex >= mapWidth-1 || zIndex >= mapHeight-1)
+	if (xIndex >= mapWidth-1 || zIndex >= mapHeight-1)
 		return 0.0f;
 
 	Ogre::Real xRatio = xIndexFloat - xIndex;
@@ -370,7 +370,7 @@ uint32 ColorMap::_getColorAt_Bilinear(Ogre::Real x, Ogre::Real z, const TRect<Re
 
 	uint32 xIndex = (uint32)xIndexFloat;
 	uint32 zIndex = (uint32)zIndexFloat;
-	if (xIndex < 0 || zIndex < 0 || xIndex > mapWidth-1 || zIndex > mapHeight-1)
+	if (xIndex > mapWidth-1 || zIndex > mapHeight-1)
 		return 0xFFFFFFFF;
 
 	Ogre::Real xRatio = xIndexFloat - xIndex;

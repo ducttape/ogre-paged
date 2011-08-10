@@ -107,13 +107,14 @@ void WindBatchPage::_updateShaders()
 			if (el->getSemantic() == VES_TEXTURE_COORDINATES)
          {
 				String uvType;
-            switch (el->getType())
-            {
-            case VET_FLOAT1: uvType = "1"; break;
-            case VET_FLOAT2: uvType = "2"; break;
-            case VET_FLOAT3: uvType = "3"; break;
-            case VET_FLOAT4: uvType = "4"; break;
-            }
+            if(el->getType() == VET_FLOAT1)
+                uvType = "1";
+            else if(el->getType() == VET_FLOAT2)
+                uvType = "2";
+            else if(el->getType() == VET_FLOAT3)
+                uvType = "3";
+            else if(el->getType() == VET_FLOAT4)
+                uvType = "4";
             tmpName << uvType << '_';
 			}
 		}
@@ -133,7 +134,6 @@ void WindBatchPage::_updateShaders()
 		//If the shader hasn't been created yet, create it
 		if (HighLevelGpuProgramManager::getSingleton().getByName(vertexProgName).isNull())
 		{
-			Pass *pass = ptrMat->getTechnique(0)->getPass(0);
 			String vertexProgSource;
 
 			if(!shaderLanguage.compare("hlsl") || !shaderLanguage.compare("cg"))
@@ -183,13 +183,14 @@ void WindBatchPage::_updateShaders()
 							else
 							{
 								String uvType = "";
-								switch (el->getType())
-								{
-									case VET_FLOAT1: uvType = "float"; break;
-									case VET_FLOAT2: uvType = "float2"; break;
-									case VET_FLOAT3: uvType = "float3"; break;
-									case VET_FLOAT4: uvType = "float4"; break;
-								}
+                                if(el->getType() == VET_FLOAT1)
+                                    uvType = "float";
+                                else if(el->getType() == VET_FLOAT2)
+                                    uvType = "float2";
+                                else if(el->getType() == VET_FLOAT3)
+                                    uvType = "float3";
+                                else if(el->getType() == VET_FLOAT4)
+                                    uvType = "float4";
 
 								vertexProgSource += 
 									"	" + uvType + " iUV" + StringConverter::toString(texNum) + "			: TEXCOORD" + StringConverter::toString(texNum) + ", \n"

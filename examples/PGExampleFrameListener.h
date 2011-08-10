@@ -106,10 +106,10 @@ public:
 	// Constructor takes a RenderWindow because it uses that to determine input context
 	ExampleFrameListener(RenderWindow* win, Camera* cam, bool bufferedKeys = false, bool bufferedMouse = false,
 			     bool bufferedJoy = false ) :
-		mCamera(cam), mTranslateVector(Vector3::ZERO), mCurrentSpeed(0), mWindow(win), mStatsOn(true), mNumScreenShots(0),
-		mMoveScale(0.0f), mRotScale(0.0f), mTimeUntilNextToggle(0), mFiltering(TFO_BILINEAR),
-		mAniso(1), mSceneDetailIndex(0), mMoveSpeed(100), mRotateSpeed(36), mDebugOverlay(0),
-		mInputManager(0), mMouse(0), mKeyboard(0), mJoy(0), pgs(0)
+		pgs(0), mCamera(cam), mTranslateVector(Vector3::ZERO), mCurrentSpeed(0), mWindow(win), mStatsOn(true),
+        mNumScreenShots(0), mMoveScale(0.0f), mRotScale(0.0f), mTimeUntilNextToggle(0),
+        mFiltering(TFO_BILINEAR), mAniso(1), mSceneDetailIndex(0), mMoveSpeed(100), mRotateSpeed(36),
+        mDebugOverlay(0), mInputManager(0), mMouse(0), mKeyboard(0), mJoy(0)
 	{
 
 		mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
